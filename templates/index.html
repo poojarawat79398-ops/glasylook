@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>GlassyLook - Premium Designing Mirrors</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #faf9f7;
+    color: #222;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+:root {
+    --black: #1f1f1f;
+    --dark: #292929;
+    --gold: #c69b45;
+    --gold-light: #ead7a9;
+    --cream: #faf7ef;
+    --white: #ffffff;
+    --gray: #777;
+    --border: #e8e3d9;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 3px 18px rgba(0,0,0,0.06);
+}
+
+.header-inner {
+    max-width: 1250px;
+    margin: auto;
+    min-height: 72px;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 23px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: var(--gold);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #444;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav a:hover {
+    color: var(--gold);
+}
+
+.cart-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cart-count {
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    border-radius: 20px;
+    background: var(--gold);
+    color: white;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    max-width: 1250px;
+    margin: 28px auto;
+    padding: 60px 45px;
+    border-radius: 25px;
+    background: linear-gradient(
+        135deg,
+        #fffdf8,
+        #f3ead8
+    );
+    border: 1px solid #eadfca;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "🪞";
+    position: absolute;
+    right: 55px;
+    top: 30px;
+    font-size: 120px;
+    opacity: 0.07;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+}
+
+.hero-small {
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: 45px;
+    line-height: 1.15;
+    margin-bottom: 15px;
+    color: #202020;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero p {
+    color: #666;
+    font-size: 17px;
+    max-width: 600px;
+    margin-bottom: 25px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.25s;
+}
+
+.shop-btn {
+    background: var(--black);
+    color: white;
+}
+
+.shop-btn:hover {
+    transform: translateY(-2px);
+    background: #000;
+}
+
+.whatsapp-btn {
+    background: #25D366;
+    color: white;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   TRUST STRIP
+===================================================== */
+
+.trust-strip {
+    max-width: 1150px;
+    margin: 0 auto 30px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 14px;
+    padding: 0 20px;
+}
+
+.trust-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 17px 12px;
+    text-align: center;
+}
+
+.trust-icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.trust-box strong {
+    display: block;
+    font-size: 14px;
+}
+
+.trust-box small {
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-area {
+    max-width: 850px;
+    margin: 0 auto 35px;
+    padding: 0 20px;
+}
+
+.search-box {
+    width: 100%;
+    height: 52px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: white;
+    padding: 0 18px;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.search-box:focus {
+    border-color: var(--gold);
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-heading {
+    text-align: center;
+    margin: 10px auto 30px;
+}
+
+.section-heading h2 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.section-heading p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+.products-section {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 20px 60px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 22px;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    overflow: hidden;
+    position: relative;
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.09);
+}
+
+
+/* =====================================================
+   IMAGE - FIXED
+===================================================== */
+
+.product-image-wrap {
+    width: 100%;
+    height: 250px;
+    background: #f4f1eb;
+    position: relative;
+    overflow: hidden;
+
+    /* CENTER IMAGE */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image-wrap img {
+    width: 100%;
+    height: 100%;
+
+    /*
+       IMPORTANT:
+       contain = full image visible
+       no cropping
+    */
+    object-fit: contain;
+
+    object-position: center center;
+
+    display: block;
+
+    transition: transform 0.35s;
+}
+
+.product-card:hover .product-image-wrap img {
+    transform: scale(1.02);
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    color: #bbb;
+}
+
+
+/* =====================================================
+   LIKE
+===================================================== */
+
+.like-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 5;
+}
+
+.like-btn.liked {
+    color: #d33;
+}
+
+
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+
+.product-info {
+    padding: 16px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 43px;
+    color: #222;
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #222;
+    margin: 8px 0;
+}
+
+.product-meta {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.7;
+    min-height: 42px;
+}
+
+
+/* =====================================================
+   PRODUCT BUTTONS
+===================================================== */
+
+.product-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 13px;
+}
+
+.btn {
+    min-height: 40px;
+    border: none;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.view-btn {
+    background: #f2f0ec;
+    color: #333;
+}
+
+.view-btn:hover {
+    background: #e6e1d7;
+}
+
+.add-btn {
+    background: var(--black);
+    color: white;
+}
+
+.add-btn:hover {
+    background: #000;
+}
+
+.buy-btn {
+    grid-column: 1 / -1;
+    background: linear-gradient(
+        135deg,
+        #d3aa5a,
+        #b88932
+    );
+    color: white;
+}
+
+.buy-btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   NO PRODUCTS
+===================================================== */
+
+.no-products {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+    display: none;
+}
+
+
+/* =====================================================
+   CUSTOMIZED SECTION
+===================================================== */
+
+.customized-section {
+    max-width: 1150px;
+    margin: 20px auto 60px;
+    padding: 45px 30px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.customized-section h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.customized-section p {
+    color: #777;
+    max-width: 700px;
+    margin: 0 auto 25px;
+}
+
+.customized-points {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.customized-point {
+    background: var(--cream);
+    border-radius: 13px;
+    padding: 18px;
+}
+
+.customized-point strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.customized-point span {
+    color: #777;
+    font-size: 13px;
+}
+
+.customize-whatsapp {
+    display: inline-flex;
+    text-decoration: none;
+    background: #25D366;
+    color: white;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PAYMENT SECTION
+===================================================== */
+
+.info-section {
+    max-width: 1150px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.info-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.info-card h3 {
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.info-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.payment-highlight {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.payment-part {
+    border: 1px solid #eadfca;
+    background: #fffaf0;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}
+
+.payment-part small {
+    display: block;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.payment-part strong {
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-section {
+    max-width: 1150px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.contact-card {
+    background: linear-gradient(
+        135deg,
+        #252525,
+        #111
+    );
+    color: white;
+    border-radius: 20px;
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.contact-card h2 {
+    margin-bottom: 8px;
+}
+
+.contact-card p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.contact-button {
+    flex-shrink: 0;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform:
+        translateX(-50%)
+        translateY(100px);
+    background: #222;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    z-index: 99999;
+    opacity: 0;
+    transition: 0.3s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+    opacity: 1;
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    background: #1e1e1e;
+    color: white;
+    padding: 40px 20px 25px;
+    text-align: center;
+}
+
+.footer h2 {
+    margin-bottom: 10px;
+}
+
+.footer p {
+    color: #bbb;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #3a3a3a;
+    color: #888;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .product-grid {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .header-inner {
+        padding: 10px 15px;
+    }
+
+    .nav {
+        gap: 10px;
+    }
+
+    .nav a {
+        font-size: 11px;
+    }
+
+    .hero {
+        margin: 15px;
+        padding: 40px 25px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .trust-strip {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2,1fr);
+        gap: 15px;
+    }
+
+    .customized-points {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .header-inner {
+        min-height: 62px;
+    }
+
+    .nav {
+        gap: 7px;
+    }
+
+    .nav a:nth-child(3) {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /*
+       MOBILE IMAGE FIX
+       Full mirror visible
+    */
+
+    .product-image-wrap {
+        height: 190px;
+    }
+
+    .product-image-wrap img {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 17px;
+    }
+
+    .product-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .buy-btn {
+        grid-column: auto;
+    }
+
+    .payment-highlight {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 370px) {
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image-wrap {
+        height: 240px;
+    }
+
+}
+
+
+/* =====================================================
+   EXTRA IMAGE SAFETY
+===================================================== */
+
+/*
+   Prevent browser from stretching images
+*/
+
+.product-image-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+/*
+   Keep mirror completely visible even
+   if original photo has unusual ratio
+*/
+
+.product-image-wrap {
+    background: #f8f6f1;
+}
+
+
+/* =====================================================
+   END CSS
+===================================================== */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            🪞 Glassy<span>Look</span>
+        </a>
+
+        <nav class="nav">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="#products">
+                Shop
+            </a>
+
+            <a href="#customized">
+                Customized
+            </a>
+
+            <a href="{{ url_for('my_orders') }}">
+                My Orders
+            </a>
+
+            <a href="{{ url_for('track_order') }}">
+                Track
+            </a>
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="cart-link"
+            >
+
+                🛒 Cart
+
+                <span
+                    id="cartCount"
+                    class="cart-count"
+                >
+                    0
+                </span>
+
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            PREMIUM DESIGNING MIRRORS
+        </div>
+
+        <h1>
+            Make Your Space
+            <span>Beautiful.</span>
+        </h1>
+
+        <p>
+            Discover elegant ready-made and
+            customized mirrors designed to
+            make your home look premium.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="#products"
+                class="hero-btn shop-btn"
+            >
+                🛍️ Explore Mirrors
+            </a>
+
+            <a
+                href="https://wa.me/919915645918?text=Hello%20GlassyLook%2C%20I%20want%20to%20know%20about%20your%20mirrors"
+                target="_blank"
+                rel="noopener"
+                class="hero-btn whatsapp-btn"
+            >
+                📲 WhatsApp Us
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRUST
+===================================================== -->
+
+<section class="trust-strip">
+
+    <div class="trust-box">
+
+        <div class="trust-icon">
+            🪞
+        </div>
+
+        <strong>
+            Premium Designs
+        </strong>
+
+        <small>
+            Stylish mirror collection
+        </small>
+
+    </div>
+
+
+    <div class="trust-box">
+
+        <div class="trust-icon">
+            🛠️
+        </div>
+
+        <strong>
+            Customized
+        </strong>
+
+        <small>
+            Made as per your requirement
+        </small>
+
+    </div>
+
+
+    <div class="trust-box">
+
+        <div class="trust-icon">
+            📦
+        </div>
+
+        <strong>
+            Safe Order
+        </strong>
+
+        <small>
+            Order tracking available
+        </small>
+
+    </div>
+
+
+    <div class="trust-box">
+
+        <div class="trust-icon">
+            💬
+        </div>
+
+        <strong>
+            WhatsApp Support
+        </strong>
+
+        <small>
+            Quick customer assistance
+        </small>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<div class="search-area">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="🔍 Search mirror by name, shape or size..."
+        oninput="searchProducts()"
+    >
+
+</div>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section
+    class="products-section"
+    id="products"
+>
+
+    <div class="section-heading">
+
+        <h2>
+            Our Mirrors
+        </h2>
+
+        <p>
+            Choose your favourite design
+        </p>
+
+    </div>
+
+
+    <div
+        class="product-grid"
+        id="productGrid"
+    >
+
+        {% for product in products %}
+
+        <div
+            class="product-card"
+            data-name="{{ product['name']|lower }}"
+            data-size="{{ (product['size'] or '')|lower }}"
+            data-shape="{{ (product['shape'] or '')|lower }}"
+        >
+
+
+            <!-- =================================================
+                 IMAGE
+            ================================================== -->
+
+            <div class="product-image-wrap">
+
+                {% if product['image'] %}
+
+                <img
+                    src="{{ url_for('uploaded_file', filename=product['image']) }}"
+                    <img
+                        src="{{ url_for('uploaded_file', filename=product['image']) }}"
+                        alt="{{ product['name'] }}"
+                        loading="lazy"
+                        onerror="
+                            this.style.display='none';
+                            this.nextElementSibling.style.display='flex';
+                        "
+                    >
+
+                    <div
+                        class="no-image"
+                        style="display:none;"
+                    >
+                        🪞
+                    </div>
+
+                {% else %}
+
+                    <div class="no-image">
+                        🪞
+                    </div>
+
+                {% endif %}
+
+                <!-- LIKE BUTTON -->
+
+                <button
+                    type="button"
+                    class="like-btn"
+                    data-product-id="{{ product['id'] }}"
+                    onclick='toggleLike(
+                        {{ product["id"]|tojson }},
+                        this
+                    )'
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    {{ product['name'] }}
+                </div>
+
+                <div class="product-price">
+                    ₹{{ product['price'] }}
+                </div>
+
+                <div class="product-meta">
+
+                    {% if product['size'] %}
+
+                        Size:
+                        {{ product['size'] }}
+
+                    {% endif %}
+
+                    {% if product['shape'] %}
+
+                        <br>
+
+                        Shape:
+                        {{ product['shape'] }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRODUCT BUTTONS -->
+
+                <div class="product-buttons">
+
+                    <!-- VIEW -->
+
+                    <a
+                        href="{{ url_for(
+                            'product',
+                            product_id=product['id']
+                        ) }}"
+                        class="btn view-btn"
+                    >
+                        👁 View
+                    </a>
+
+
+                    <!-- ADD TO CART -->
+
+                    <button
+                        type="button"
+                        class="btn add-btn"
+                        onclick='addToCart(
+                            {{ product["id"]|tojson }},
+                            {{ product["name"]|tojson }},
+                            {{ product["price"]|tojson }},
+                            {{ product["image"]|tojson }},
+                            {{ (product["size"] or "")|tojson }},
+                            {{ (product["shape"] or "")|tojson }}
+                        )'
+                    >
+                        🛒 Add to Cart
+                    </button>
+
+
+                    <!-- BUY NOW -->
+
+                    <button
+                        type="button"
+                        class="btn buy-btn"
+                        onclick='buyNow(
+                            {{ product["id"]|tojson }},
+                            {{ product["name"]|tojson }},
+                            {{ product["price"]|tojson }},
+                            {{ product["image"]|tojson }},
+                            {{ (product["size"] or "")|tojson }},
+                            {{ (product["shape"] or "")|tojson }}
+                        )'
+                    >
+                        ⚡ Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- NO PRODUCTS -->
+
+    <div
+        id="noProducts"
+        class="no-products"
+    >
+        😔 No mirror found.
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CUSTOMIZED SECTION
+===================================================== -->
+
+<section
+    class="customized-section"
+    id="customized"
+>
+
+    <h2>
+        🛠️ Customized Mirrors
+    </h2>
+
+    <p>
+        Have a specific size, shape or design
+        in mind? GlassyLook also provides
+        customized mirrors made according to
+        your requirements.
+    </p>
+
+    <div class="customized-points">
+
+        <div class="customized-point">
+
+            <strong>
+                📐 Custom Size
+            </strong>
+
+            <span>
+                Choose the size according to your space.
+            </span>
+
+        </div>
+
+        <div class="customized-point">
+
+            <strong>
+                ✨ Custom Design
+            </strong>
+
+            <span>
+                Discuss your preferred mirror design.
+            </span>
+
+        </div>
+
+        <div class="customized-point">
+
+            <strong>
+                🪞 Ready Made
+            </strong>
+
+            <span>
+                Ready Made & Customized both available.
+            </span>
+
+        </div>
+
+    </div>
+
+    <a
+        href="https://wa.me/919915645918?text=Hello%20GlassyLook%2C%20I%20want%20a%20customized%20mirror.%20Please%20share%20details"
+        target="_blank"
+        rel="noopener"
+        class="customize-whatsapp"
+    >
+        📲 Discuss Customized Mirror on WhatsApp
+    </a>
+
+</section>
+
+
+<!-- =====================================================
+     PAYMENT / ORDER INFORMATION
+===================================================== -->
+
+<section class="info-section">
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <h3>
+                📦 Easy & Secure Ordering
+            </h3>
+
+            <p>
+                Select your mirror, add it to cart
+                or use Buy Now. Enter your customer
+                details, select your payment method
+                and place your order.
+
+                <br><br>
+
+                After placing the order, your order
+                details can be sent to GlassyLook
+                through WhatsApp.
+
+                <br><br>
+
+                You can also track your order from
+                the <strong>Track Order</strong> page.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                💳 Payment Options
+            </h3>
+
+            <p>
+                We provide both
+                <strong>Online Payment</strong>
+                and
+                <strong>Cash on Delivery</strong>
+                options.
+            </p>
+
+            <div class="payment-highlight">
+
+                <div class="payment-part">
+
+                    <small>
+                        Online Order
+                    </small>
+
+                    <strong>
+                        75%
+                    </strong>
+
+                    <small>
+                        Before Order
+                    </small>
+
+                </div>
+
+                <div class="payment-part">
+
+                    <small>
+                        Remaining
+                    </small>
+
+                    <strong>
+                        25%
+                    </strong>
+
+                    <small>
+                        After Delivery
+                    </small>
+
+                </div>
+
+            </div>
+
+            <p style="margin-top:15px;">
+
+                <strong>UPI:</strong>
+                goutamaartti@okaxis
+
+                <br>
+
+                <strong>WhatsApp:</strong>
+                99156 45918
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section class="contact-section">
+
+    <div class="contact-card">
+
+        <div>
+
+            <h2>
+                Need Help Choosing a Mirror?
+            </h2>
+
+            <p>
+                Contact GlassyLook on WhatsApp
+                for mirror details, customization
+                and order assistance.
+            </p>
+
+        </div>
+
+        <a
+            href="https://wa.me/919915645918?text=Hello%20GlassyLook%2C%20I%20need%20help%20with%20a%20mirror"
+            target="_blank"
+            rel="noopener"
+            class="contact-button"
+        >
+            📲 Chat on WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    Added to Cart
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <h2>
+        🪞 GlassyLook
+    </h2>
+
+    <p>
+
+        Ready Made & Customized Mirrors
+
+        <br>
+
+        🛠️ Made to Order & Ready Made —
+        Both Available
+
+        <br>
+
+        📲 WhatsApp:
+        99156 45918
+
+        <br>
+
+        💳 UPI:
+        goutamaartti@okaxis
+
+    </p>
+
+    <div class="footer-bottom">
+
+        © 2026 GlassyLook.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+function getCart() {
+
+    try {
+
+        const saved =
+            localStorage.getItem("cart");
+
+        const cart =
+            JSON.parse(saved);
+
+        return Array.isArray(cart)
+            ? cart
+            : [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+function saveCart(cart) {
+
+    try {
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+function updateCartCount() {
+
+    const cart = getCart();
+
+    let count = 0;
+
+    cart.forEach(function(item) {
+
+        count += Number(
+            item.quantity || 1
+        );
+
+    });
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (cartCount) {
+
+        cartCount.textContent = count;
+
+    }
+
+}
+
+
+function addToCart(
+    id,
+    name,
+    price,
+    image,
+    size,
+    shape
+) {
+
+    let cart = getCart();
+
+    const productId = Number(id);
+
+    const existingIndex =
+        cart.findIndex(function(item) {
+
+            return Number(item.id) === productId;
+
+        });
+
+    if (existingIndex !== -1) {
+
+        cart[existingIndex].quantity =
+            Number(
+                cart[existingIndex].quantity || 1
+            ) + 1;
+
+    } else {
+
+        cart.push({
+
+            id: productId,
+
+            name: name,
+
+            price: Number(price),
+
+            image: image || "",
+
+            quantity: 1,
+
+            size: size || "",
+
+            shape: shape || ""
+
+        });
+
+    }
+
+    saveCart(cart);
+
+    updateCartCount();
+
+    showToast(
+        "🛒 Product added to cart"
+    );
+
+}
+
+
+function buyNow(
+    id,
+    name,
+    price,
+    image,
+    size,
+    shape
+) {
+
+    const item = {
+
+        id: Number(id),
+
+        name: name,
+
+        price: Number(price),
+
+        image: image || "",
+
+        quantity: 1,
+
+        size: size || "",
+
+        shape: shape || ""
+
+    };
+
+    try {
+
+        localStorage.setItem(
+            "buyNow",
+            JSON.stringify([item])
+        );
+
+        window.location.href =
+            "{{ url_for('checkout') }}";
+
+    } catch (error) {
+
+        alert(
+            "Unable to continue. Please try again."
+        );
+
+        console.log(error);
+
+    }
+
+}
+
+
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    const search =
+        input.value
+        .trim()
+        .toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".product-card");
+
+    let visible = 0;
+
+    cards.forEach(function(card) {
+
+        const name =
+            card.dataset.name || "";
+
+        const size =
+            card.dataset.size || "";
+
+        const shape =
+            card.dataset.shape || "";
+
+        const found =
+            name.includes(search) ||
+            size.includes(search) ||
+            shape.includes(search);
+
+        if (found) {
+
+            card.style.display = "";
+
+            visible++;
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+    const noProducts =
+        document.getElementById("noProducts");
+
+    if (noProducts) {
+
+        noProducts.style.display =
+            visible === 0
+                ? "block"
+                : "none";
+
+    }
+
+}
+
+
+function toggleLike(
+    productId,
+    button
+) {
+
+    let likes = [];
+
+    try {
+
+        likes =
+            JSON.parse(
+                localStorage.getItem(
+                    "glassylookLikes"
+                )
+            ) || [];
+
+    } catch (error) {
+
+        likes = [];
+
+    }
+
+    const id = Number(productId);
+
+    const index = likes.indexOf(id);
+
+    if (index === -1) {
+
+        likes.push(id);
+
+        button.classList.add("liked");
+
+        button.textContent = "♥";
+
+        showToast(
+            "♡ Added to favourites"
+        );
+
+    } else {
+
+        likes.splice(index, 1);
+
+        button.classList.remove("liked");
+
+        button.textContent = "♡";
+
+        showToast(
+            "Removed from favourites"
+        );
+
+    }
+
+    localStorage.setItem(
+        "glassylookLikes",
+        JSON.stringify(likes)
+    );
+
+}
+
+
+function loadLikes() {
+
+    let likes = [];
+
+    try {
+
+        likes =
+            JSON.parse(
+                localStorage.getItem(
+                    "glassylookLikes"
+                )
+            ) || [];
+
+    } catch (error) {
+
+        likes = [];
+
+    }
+
+    document
+        .querySelectorAll(".like-btn")
+        .forEach(function(button) {
+
+            const id =
+                Number(
+                    button.dataset.productId
+                );
+
+            if (likes.includes(id)) {
+
+                button.classList.add("liked");
+
+                button.textContent = "♥";
+
+            }
+
+        });
+
+}
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(
+        window.glassyToastTimer
+    );
+
+    window.glassyToastTimer =
+        setTimeout(function() {
+
+            toast.classList.remove("show");
+
+        }, 2200);
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateCartCount();
+
+        loadLikes();
+
+    }
+);
+
+
+window.addEventListener(
+    "storage",
+    function() {
+
+        updateCartCount();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

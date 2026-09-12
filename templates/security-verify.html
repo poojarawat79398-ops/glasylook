@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Security PIN - GlassyLook</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f7f4ee;
+    font-family:Arial,sans-serif;
+    padding:20px;
+}
+
+.box{
+    width:100%;
+    max-width:420px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.1);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+p{
+    text-align:center;
+    color:#777;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+label{
+    font-weight:bold;
+    font-size:13px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    text-align:center;
+    letter-spacing:5px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:0;
+    border-radius:10px;
+    background:#222;
+    color:white;
+    font-weight:bold;
+}
+
+.error{
+    background:#ffecec;
+    color:#b00020;
+    padding:10px;
+    border-radius:8px;
+    font-size:13px;
+    margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🛡️ Security Verification</h2>
+
+<p>
+Enter your 6-digit Security PIN.
+</p>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="POST">
+
+<label>Security PIN</label>
+
+<input
+    type="password"
+    name="security_pin"
+    maxlength="6"
+    minlength="6"
+    pattern="[0-9]{6}"
+    inputmode="numeric"
+    required
+>
+
+<button type="submit">
+    Verify PIN
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

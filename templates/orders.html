@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Manage Orders - GlassyLook</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f7f6f2;
+    color:#222;
+}
+
+header{
+    background:#111;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:27px;
+    font-weight:bold;
+}
+
+header span{
+    color:#d4af37;
+}
+
+.container{
+    max-width:1100px;
+    margin:25px auto;
+    padding:15px;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.order-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    border-bottom:1px solid #eee;
+    padding-bottom:15px;
+}
+
+.order-id{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.date{
+    color:#777;
+    font-size:14px;
+}
+
+.details{
+    margin-top:15px;
+    line-height:1.8;
+    color:#555;
+}
+
+.total{
+    color:#b08b15;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.status{
+    margin-top:18px;
+}
+
+.status label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.status select{
+    width:100%;
+    max-width:400px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:7px;
+    font-size:15px;
+}
+
+.update{
+    margin-top:10px;
+    padding:12px 18px;
+    border:0;
+    border-radius:7px;
+    background:#111;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.update:hover{
+    background:#333;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.btn{
+    text-decoration:none;
+    padding:11px 15px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.track{
+    background:#d4af37;
+    color:#111;
+}
+
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+
+.empty{
+    background:white;
+    padding:40px;
+    text-align:center;
+    border-radius:12px;
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:10px;
+    }
+
+    .order-card{
+        padding:15px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    Glassy<span>Look</span>
+</header>
+
+
+<div class="container">
+
+    <h1 class="title">
+        📦 Manage Orders
+    </h1>
+
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <div class="order-top">
+
+                <div class="order-id">
+                    Order #{{ order['id'] }}
+                </div>
+
+                <div class="date">
+                    {{ order['created_at'] }}
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <strong>Customer:</strong>
+                {{ order['customer_name'] }}
+
+                <br>
+
+                <strong>Phone:</strong>
+                {{ order['phone'] }}
+
+                <br>
+
+                <strong>Address:</strong>
+                {{ order['address'] }},
+                {{ order['city'] }}
+                - {{ order['pincode'] }}
+
+                <br>
+
+                <strong>Payment:</strong>
+                {{ order['payment_method'] }}
+
+                <br><br>
+
+                <span class="total">
+                    Total: ₹{{ order['total'] }}
+                </span>
+
+            </div>
+
+
+            <!-- CHANGE STATUS -->
+
+            <div class="status">
+
+                <label>
+                    Update Order Status
+                </label>
+
+                <form
+                    action="/update-order-status/{{ order['id'] }}"
+                    method="POST"
+                >
+
+                    <select name="status">
+
+                        <option
+                            value="New"
+                            {% if order['status'] == 'New' %}
+                            selected
+                            {% endif %}
+                        >
+                            New
+                        </option>
+
+                        <option
+                            value="Confirmed"
+                            {% if order['status'] == 'Confirmed' %}
+                            selected
+                            {% endif %}
+                        >
+                            Confirmed
+                        </option>
+
+                        <option
+                            value="Shipped"
+                            {% if order['status'] == 'Shipped' %}
+                            selected
+                            {% endif %}
+                        >
+                            Shipped
+                        </option>
+
+                        <option
+                            value="Out for Delivery"
+                            {% if order['status'] == 'Out for Delivery' %}
+                            selected
+                            {% endif %}
+                        >
+                            Out for Delivery
+                        </option>
+
+                        <option
+                            value="Delivered"
+                            {% if order['status'] == 'Delivered' %}
+                            selected
+                            {% endif %}
+                        >
+                            Delivered
+                        </option>
+
+                        <option
+                            value="Cancelled"
+                            {% if order['status'] == 'Cancelled' %}
+                            selected
+                            {% endif %}
+                        >
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                    <br>
+
+                    <button
+                        type="submit"
+                        class="update"
+                    >
+                        ✅ Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- LINKS -->
+
+            <div class="buttons">
+
+                <a
+                    href="/track-order/{{ order['id'] }}"
+                    class="btn track"
+                    target="_blank"
+                >
+                    🚚 View Tracking
+                </a>
+
+
+                <a
+                    href="https://wa.me/919915645918"
+                    target="_blank"
+                    class="btn whatsapp"
+                >
+                    💬 WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+            <p style="margin-top:10px;color:#777;">
+                Customer orders will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

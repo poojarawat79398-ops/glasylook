@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Track Order - GlassyLook</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+    background: #faf9f6;
+    color: #222;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 16px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.logo {
+    color: #9b742d;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: #444;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #a67c2d;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+    width: 92%;
+    max-width: 950px;
+    margin: 35px auto 60px;
+}
+
+
+/* =====================================================
+   SEARCH BOX
+===================================================== */
+
+.search-box {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 22px rgba(0,0,0,0.06);
+}
+
+.search-box h1 {
+    color: #6e5221;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 9px;
+
+    outline: none;
+    font-size: 15px;
+}
+
+.form-group input:focus {
+    border-color: #b18a42;
+}
+
+
+.track-btn {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #a67c2d;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.track-btn:hover {
+    background: #8f6926;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error {
+    margin-top: 16px;
+
+    background: #fff0f0;
+    color: #b32626;
+
+    padding: 13px;
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ORDER BOX
+===================================================== */
+
+.order-box {
+    background: white;
+
+    margin-top: 25px;
+    padding: 28px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 22px rgba(0,0,0,0.06);
+}
+
+
+/* =====================================================
+   ORDER HEADER
+===================================================== */
+
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+    flex-wrap: wrap;
+
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-header h2 {
+    color: #6e5221;
+}
+
+.status-badge {
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    background: #fff4d8;
+    color: #795d20;
+
+    font-weight: bold;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   ORDER INFORMATION
+===================================================== */
+
+.order-info {
+    margin-top: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.info-item {
+    background: #faf9f6;
+    padding: 13px;
+    border-radius: 9px;
+}
+
+.info-item strong {
+    display: block;
+    color: #6e5221;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.info-item span {
+    color: #555;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   TRACKING TIMELINE
+===================================================== */
+
+.tracking-section {
+    margin-top: 30px;
+}
+
+.tracking-section h2 {
+    color: #6e5221;
+    margin-bottom: 20px;
+}
+
+
+.timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 5px;
+
+    overflow-x: auto;
+
+    padding: 10px 0 15px;
+}
+
+
+.step {
+    min-width: 105px;
+    text-align: center;
+
+    position: relative;
+}
+
+
+.circle {
+    width: 40px;
+    height: 40px;
+
+    margin: 0 auto;
+
+    border-radius: 50%;
+
+    background: #dedede;
+    color: #777;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+.step.active .circle {
+    background: #a67c2d;
+    color: white;
+}
+
+
+.step.completed .circle {
+    background: #a67c2d;
+    color: white;
+}
+
+
+.step-name {
+    display: block;
+
+    margin-top: 9px;
+
+    font-size: 12px;
+    color: #777;
+
+    line-height: 1.3;
+}
+
+
+.step.active .step-name,
+.step.completed .step-name {
+    color: #6e5221;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+.products-section {
+    margin-top: 30px;
+}
+
+.products-section h2 {
+    color: #6e5221;
+    margin-bottom: 15px;
+}
+
+
+.product {
+    display: flex;
+
+    gap: 17px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   MIRROR IMAGE
+===================================================== */
+
+.product-img {
+    width: 110px;
+    height: 125px;
+
+    flex-shrink: 0;
+
+    background: #f5f3ee;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/*
+   IMPORTANT:
+   CONTAIN = FULL MIRROR WILL BE VISIBLE
+   NO CROPPING / NO HALF MIRROR
+*/
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    display: block;
+}
+
+
+.no-image {
+    font-size: 42px;
+}
+
+
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+
+.product-info {
+    flex: 1;
+    padding-top: 4px;
+}
+
+.product-info h3 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.product-price {
+    color: #a47725;
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   TOTAL
+===================================================== */
+
+.total-box {
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #ddd;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.total-box span:last-child {
+    color: #a47725;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+
+    min-width: 180px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    padding: 13px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+}
+
+.home-btn {
+    background: #eee;
+    color: #333;
+}
+
+.orders-btn {
+    background: #a67c2d;
+    color: white;
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-box {
+    margin-top: 25px;
+
+    background: #fff9e8;
+
+    padding: 18px;
+
+    border-radius: 11px;
+
+    color: #765b25;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 650px) {
+
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .container {
+        width: 94%;
+        margin-top: 22px;
+    }
+
+    .search-box,
+    .order-box {
+        padding: 20px;
+    }
+
+    .order-info {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline {
+        justify-content: flex-start;
+    }
+
+    .product-img {
+        width: 90px;
+        height: 110px;
+    }
+
+    .product-info h3 {
+        font-size: 15px;
+    }
+
+    .product-info p {
+        font-size: 13px;
+    }
+
+    .total-box {
+        font-size: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+        🪞 GlassyLook
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/my-orders">
+            My Orders
+        </a>
+
+        <a href="/cart">
+            Cart
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="search-box">
+
+        <h1>
+            🚚 Track Your Order
+        </h1>
+
+        <p class="subtitle">
+            Enter your Order ID and phone number to check
+            your latest order status.
+        </p>
+
+
+        <form
+            method="POST"
+            action="/track-order"
+        >
+
+            <div class="form-group">
+
+                <label>
+                    Order ID
+                </label>
+
+                <input
+                    type="text"
+                    name="order_id"
+                    value="{{ request.args.get('order_id', '') }}"
+                    placeholder="Enter Order ID"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter phone number used for order"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="track-btn"
+            >
+                🔍 Track Order
+            </button>
+
+        </form>
+
+
+        {% if error %}
+
+        <div class="error">
+            ❌ {{ error }}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    {% if order %}
+
+    <!-- =================================================
+         ORDER DETAILS
+    ================================================== -->
+
+    <div class="order-box">
+
+
+        <div class="order-header">
+
+            <h2>
+                Order #{{ order["id"] }}
+            </h2>
+
+            <div class="status-badge">
+
+                {{ order["status"] or "New" }}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             CUSTOMER INFORMATION
+        ============================================== -->
+
+        <div class="order-info">
+
+            <div class="info-item">
+
+                <strong>
+                    Customer
+                </strong>
+
+                <span>
+                    {{ order["customer_name"] }}
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    Phone
+                </strong>
+
+                <span>
+                    {{ order["phone"] }}
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    City
+                </strong>
+
+                <span>
+                    {{ order["city"] }}
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    Pincode
+                </strong>
+
+                <span>
+                    {{ order["pincode"] }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             ADDRESS
+        ============================================== -->
+
+        <div
+            class="info-item"
+            style="margin-top:12px;"
+        >
+
+            <strong>
+                Delivery Address
+            </strong>
+
+            <span>
+                {{ order["address"] }}
+            </span>
+
+        </div>
+
+
+
+        <!-- =============================================
+             TRACKING
+        ============================================== -->
+
+        <div class="tracking-section">
+
+            <h2>
+                📦 Order Status
+            </h2>
+
+
+            {% set current = order["status"] or "New" %}
+
+            {% set statuses = [
+                "New",
+                "Confirmed",
+                "Processing",
+                "Shipped",
+                "Out for Delivery",
+                "Delivered"
+            ] %}
+
+
+            <div class="timeline">
+
+
+                {% for status in statuses %}
+
+                {% set current_index =
+                    statuses.index(current)
+                    if current in statuses
+                    else 0
+                %}
+
+                {% set status_index = loop.index0 %}
+
+
+                <div
+                    class="step
+                    {% if status_index < current_index %}
+                        completed
+                    {% elif status_index == current_index %}
+                        active
+                    {% endif %}"
+                >
+
+                    <div class="circle">
+
+                        {% if status_index <= current_index %}
+
+                            ✓
+
+                        {% else %}
+
+                            •
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <span class="step-name">
+
+                        {{ status }}
+
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             PRODUCTS
+        ============================================== -->
+
+        <div class="products-section">
+
+            <h2>
+                🪞 Ordered Products
+            </h2>
+
+
+            {% if items %}
+
+                {% for item in items %}
+
+                <div class="product">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="product-img">
+
+                        {% if item["image"] %}
+
+                        <img
+                            src="{{ url_for(
+                                'uploaded_file',
+                                filename=item['image']
+                            ) }}"
+                            alt="{{ item['name'] }}"
+
+                            onerror="
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='block';
+                            "
+                        >
+
+                        <div
+                            class="no-image"
+                            style="display:none;"
+                        >
+                            🪞
+                        </div>
+
+                        {% else %}
+
+                        <div class="no-image">
+                            🪞
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- PRODUCT DETAILS -->
+
+                    <div class="product-info">
+
+                        <h3>
+                            {{ item["name"] }}
+                        </h3>
+
+
+                        <p>
+                            <strong>
+                                Quantity:
+                            </strong>
+
+                            {{ item["quantity"] }}
+                        </p>
+
+
+                        {% if item["size"] %}
+
+                        <p>
+                            <strong>
+                                Size:
+                            </strong>
+
+                            {{ item["size"] }}
+                        </p>
+
+                        {% endif %}
+
+
+                        {% if item["shape"] %}
+
+                        <p>
+                            <strong>
+                                Shape:
+                            </strong>
+
+                            {{ item["shape"] }}
+                        </p>
+
+                        {% endif %}
+
+
+                        <div class="product-price">
+
+                            ₹{{ (
+                                item["price"]
+                                *
+                                item["quantity"]
+                            )|int }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p style="color:#777;">
+                    Product details are not available.
+                </p>
+
+            {% endif %}
+
+
+            <!-- TOTAL -->
+
+            <div class="total-box">
+
+                <span>
+                    Total Amount
+                </span>
+
+                <span>
+                    ₹{{ order["total"] }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             PAYMENT
+        ============================================== -->
+
+        <div class="payment-box">
+
+            <strong>
+                💳 Payment Method:
+            </strong>
+
+            {{ order["payment_method"] }}
+
+            <br><br>
+
+            <strong>
+                GlassyLook Payment Policy:
+            </strong>
+
+            <br>
+
+            75% Before Order +
+            25% After Delivery
+
+            {% if order["payment_method"] == "Online Payment" %}
+
+            <br><br>
+
+            UPI:
+            <strong>
+                goutamaartti@okaxis
+            </strong>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =============================================
+             BUTTONS
+        ============================================== -->
+
+        <div class="buttons">
+
+            <a
+                href="/my-orders"
+                class="btn orders-btn"
+            >
+                📦 My Orders
+            </a>
+
+
+            <a
+                href="/"
+                class="btn home-btn"
+            >
+                🏠 Continue Shopping
+            </a>
+
+        </div>
+
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

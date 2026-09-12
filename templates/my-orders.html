@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Orders - GlassyLook</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+    background: #faf9f6;
+    color: #222;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    background: white;
+    border-bottom: 1px solid #eeeeee;
+
+    padding: 16px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.logo {
+    color: #a67c2d;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #444;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #a67c2d;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.container {
+    width: 92%;
+    max-width: 1000px;
+
+    margin: 35px auto 60px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    color: #6d5224;
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+
+.page-title p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   EMPTY ORDERS
+===================================================== */
+
+.empty-box {
+    background: white;
+
+    padding: 50px 25px;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.06);
+}
+
+.empty-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.empty-box h2 {
+    color: #6d5224;
+    margin-bottom: 10px;
+}
+
+.empty-box p {
+    color: #777;
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   SHOP BUTTON
+===================================================== */
+
+.shop-btn {
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: #a67c2d;
+    color: white;
+
+    padding: 13px 25px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   ORDER CARD
+===================================================== */
+
+.order-card {
+    background: white;
+
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.06);
+}
+
+
+/* =====================================================
+   ORDER HEADER
+===================================================== */
+
+.order-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.order-id {
+    color: #6d5224;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.order-date {
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    background: #fff4d8;
+
+    color: #765b20;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   CUSTOMER DETAILS
+===================================================== */
+
+.customer-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.info-box {
+    background: #faf9f6;
+
+    padding: 12px;
+
+    border-radius: 9px;
+}
+
+.info-box strong {
+    display: block;
+
+    color: #6d5224;
+
+    font-size: 12px;
+
+    margin-bottom: 4px;
+}
+
+.info-box span {
+    color: #555;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PRODUCT LIST
+===================================================== */
+
+.products {
+    margin-top: 20px;
+}
+
+.products-title {
+    color: #6d5224;
+
+    font-size: 17px;
+
+    margin-bottom: 10px;
+}
+
+.product {
+    display: flex;
+
+    gap: 15px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+===================================================== */
+
+.product-image {
+
+    width: 90px;
+    height: 105px;
+
+    flex-shrink: 0;
+
+    background: #f5f3ee;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/*
+   IMPORTANT:
+   FULL MIRROR IMAGE
+   NO CROPPING
+*/
+
+.product-image img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position: center;
+
+    display: block;
+}
+
+.no-image {
+    font-size: 36px;
+}
+
+
+/* =====================================================
+   PRODUCT INFORMATION
+===================================================== */
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h3 {
+    color: #333;
+
+    font-size: 16px;
+
+    margin-bottom: 7px;
+}
+
+.product-info p {
+    color: #777;
+
+    font-size: 13px;
+
+    margin: 4px 0;
+}
+
+.product-price {
+    color: #a67c2d;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    margin-top: 7px;
+}
+
+
+/* =====================================================
+   TOTAL
+===================================================== */
+
+.total-row {
+
+    border-top: 1px solid #dddddd;
+
+    margin-top: 12px;
+
+    padding-top: 16px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 19px;
+
+    font-weight: bold;
+}
+
+.total-row span:last-child {
+    color: #a67c2d;
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-info {
+
+    margin-top: 15px;
+
+    background: #fff9e8;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    color: #765b20;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 18px;
+}
+
+.btn {
+
+    flex: 1;
+
+    min-width: 150px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.track-btn {
+    background: #a67c2d;
+    color: white;
+}
+
+.details-btn {
+    background: #eee;
+    color: #333;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 650px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .container {
+        width: 94%;
+        margin-top: 22px;
+    }
+
+    .order-card {
+        padding: 18px;
+    }
+
+    .customer-info {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        width: 78px;
+        height: 95px;
+    }
+
+    .product-info h3 {
+        font-size: 15px;
+    }
+
+    .product-info p {
+        font-size: 12px;
+    }
+
+    .total-row {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+        🪞 GlassyLook
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/cart">
+            Cart
+        </a>
+
+        <a href="/track-order">
+            Track Order
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <div class="page-title">
+
+        <h1>
+            📦 My Orders
+        </h1>
+
+        <p>
+            View your orders and track your delivery status.
+        </p>
+
+    </div>
+
+
+
+    {% if orders %}
+
+
+        <!-- =================================================
+             ORDERS
+        ================================================== -->
+
+        {% for order in orders %}
+
+
+        <div class="order-card">
+
+
+            <!-- =============================================
+                 ORDER HEADER
+            ============================================== -->
+
+            <div class="order-top">
+
+                <div>
+
+                    <div class="order-id">
+
+                        Order #{{ order["id"] }}
+
+                    </div>
+
+
+                    {% if order["created_at"] %}
+
+                    <div class="order-date">
+
+                        {{ order["created_at"] }}
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="status">
+
+                    {{ order["status"] or "New" }}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CUSTOMER INFORMATION
+            ============================================== -->
+
+            <div class="customer-info">
+
+
+                <div class="info-box">
+
+                    <strong>
+                        Customer
+                    </strong>
+
+                    <span>
+
+                        {{ order["customer_name"] }}
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <strong>
+                        Phone
+                    </strong>
+
+                    <span>
+
+                        {{ order["phone"] }}
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <strong>
+                        City
+                    </strong>
+
+                    <span>
+
+                        {{ order["city"] }}
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <strong>
+                        Pincode
+                    </strong>
+
+                    <span>
+
+                        {{ order["pincode"] }}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PRODUCTS
+            ============================================== -->
+
+            {% if order["items"] %}
+
+
+            <div class="products">
+
+                <div class="products-title">
+
+                    🪞 Ordered Products
+
+                </div>
+
+
+                {% for item in order["items"] %}
+
+
+                <div class="product">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="product-image">
+
+
+                        {% if item["image"] %}
+
+
+                        <img
+                            src="{{ url_for(
+                                'uploaded_file',
+                                filename=item['image']
+                            ) }}"
+
+                            alt="{{ item['name'] }}"
+
+                            onerror="
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='block';
+                            "
+                        >
+
+
+                        <div
+                            class="no-image"
+                            style="display:none;"
+                        >
+                            🪞
+                        </div>
+
+
+                        {% else %}
+
+
+                        <div class="no-image">
+
+                            🪞
+
+                        </div>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- PRODUCT DETAILS -->
+
+                    <div class="product-info">
+
+
+                        <h3>
+
+                            {{ item["name"] }}
+
+                        </h3>
+
+
+                        <p>
+
+                            Quantity:
+                            <strong>
+                                {{ item["quantity"] }}
+                            </strong>
+
+                        </p>
+
+
+                        {% if item["size"] %}
+
+                        <p>
+
+                            Size:
+                            {{ item["size"] }}
+
+                        </p>
+
+                        {% endif %}
+
+
+                        {% if item["shape"] %}
+
+                        <p>
+
+                            Shape:
+                            {{ item["shape"] }}
+
+                        </p>
+
+                        {% endif %}
+
+
+                        <div class="product-price">
+
+                            ₹{{ (
+                                item["price"]
+                                *
+                                item["quantity"]
+                            )|int }}
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% endif %}
+
+
+
+            <!-- =============================================
+                 TOTAL
+            ============================================== -->
+
+            <div class="total-row">
+
+                <span>
+                    Total Amount
+                </span>
+
+                <span>
+
+                    ₹{{ order["total"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PAYMENT
+            ============================================== -->
+
+            {% if order["payment_method"] %}
+
+            <div class="payment-info">
+
+                <strong>
+                    💳 Payment:
+                </strong>
+
+                {{ order["payment_method"] }}
+
+                <br>
+
+                <strong>
+                    Payment Policy:
+                </strong>
+
+                75% Before Order + 25% After Delivery
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- =============================================
+                 BUTTONS
+            ============================================== -->
+
+            <div class="buttons">
+
+
+                <a
+                    href="{{ url_for(
+                        'order_details',
+                        order_id=order['id']
+                    ) }}"
+                    class="btn details-btn"
+                >
+                    👁️ View Order
+                </a>
+
+
+                <a
+                    href="{{ url_for(
+                        'track_order',
+                        order_id=order['id']
+                    ) }}"
+                    class="btn track-btn"
+                >
+                    🚚 Track Order
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             NO ORDERS
+        ================================================== -->
+
+        <div class="empty-box">
+
+            <div class="empty-icon">
+                📦
+            </div>
+
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+
+            <p>
+                You haven't placed any orders yet.
+            </p>
+
+
+            <a
+                href="/"
+                class="shop-btn"
+            >
+                🛍️ Start Shopping
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

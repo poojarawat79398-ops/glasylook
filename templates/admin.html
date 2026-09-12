@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - GlassyLook</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f4f1;
+    padding: 20px;
+    color: #222;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    margin-bottom: 25px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #b89b5e;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.logout {
+    background: #222;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+button {
+    margin-top: 20px;
+    background: #222;
+    color: white;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+.flash {
+    background: #e8ffe8;
+    color: green;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.product-card,
+.order-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    background: #fafafa;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.no-image {
+    height: 200px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #777;
+}
+
+.product-card h3 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.product-card p,
+.order-card p {
+    margin: 7px 0;
+    line-height: 1.5;
+}
+
+.delete-btn {
+    background: #c62828;
+    width: 100%;
+}
+
+.order-card {
+    margin-bottom: 20px;
+}
+
+.order-card h3 {
+    margin-bottom: 15px;
+}
+
+.order-card h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.order-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    line-height: 1.7;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.status-form {
+    margin-top: 15px;
+}
+
+.status-form button {
+    width: 100%;
+}
+
+.empty {
+    color: #777;
+    padding: 10px 0;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .welcome {
+        justify-content: flex-start;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="logo">
+            Glassy<span>Look</span>
+        </div>
+
+        <div class="welcome">
+            <span>
+                Welcome, <b>{{ session.get('admin_username', 'Admin') }}</b>
+            </span>
+
+            <a class="logout" href="{{ url_for('admin_logout') }}">
+                Logout
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    <!-- ADD PRODUCT -->
+    <div class="card">
+
+        <h2>Add New Mirror</h2>
+
+        <form method="POST"
+              action="{{ url_for('admin_add_product') }}"
+              enctype="multipart/form-data">
+
+            <label>Product Name</label>
+            <input
+                type="text"
+                name="name"
+                placeholder="Mirror name"
+                required
+            >
+
+            <label>Price</label>
+            <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                min="0"
+                step="0.01"
+                required
+            >
+
+            <label>Category</label>
+            <input
+                type="text"
+                name="category"
+                placeholder="Round / LED / Designer"
+            >
+
+            <label>Size</label>
+            <input
+                type="text"
+                name="size"
+                placeholder="Example: 24x36 inch"
+            >
+
+            <label>Shape</label>
+            <input
+                type="text"
+                name="shape"
+                placeholder="Round / Square"
+            >
+
+            <label>Description</label>
+            <textarea
+                name="description"
+                placeholder="Product details"></textarea>
+
+            <label>Upload Image</label>
+            <input
+                type="file"
+                name="image"
+                accept="image/*"
+            >
+
+            <button type="submit">
+                Add Product
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+    <div class="card">
+
+        <h2>All Products</h2>
+
+        <div class="product-grid">
+
+            {% for product in products %}
+
+                <div class="product-card">
+
+                    {% if product['image'] %}
+
+                        <img
+                            src="{{ url_for('uploaded_file', filename=product['image']) }}"
+                            alt="{{ product['name'] }}"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            No Image
+                        </div>
+
+                    {% endif %}
+
+                    <h3>
+                        {{ product['name'] }}
+                    </h3>
+
+                    <p>
+                        <b>Price:</b> ₹{{ product['price'] }}
+                    </p>
+
+                    <p>
+                        <b>Category:</b> {{ product['category'] or '—' }}
+                    </p>
+
+                    <p>
+                        <b>Size:</b> {{ product['size'] or '—' }}
+                    </p>
+
+                    <p>
+                        <b>Shape:</b> {{ product['shape'] or '—' }}
+                    </p>
+
+                    <p>
+                        <b>Description:</b>
+                        {{ product['description'] or '—' }}
+                    </p>
+
+                    <form method="POST"
+                          action="{{ url_for('admin_delete_product', product_id=product['id']) }}">
+
+                        <button
+                            type="submit"
+                            class="delete-btn"
+                            onclick="return confirm('Delete this product?');">
+                            Delete Product
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% else %}
+
+                <p class="empty">
+                    No products added yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ORDERS -->
+    <div class="card">
+
+        <h2>Customer Orders</h2>
+
+        {% for order in orders %}
+
+            <div class="order-card">
+
+                <h3>
+                    Order #{{ order['id'] }}
+                </h3>
+
+                <p>
+                    <b>Name:</b>
+                    {{ order['customer_name'] }}
+                </p>
+
+                <p>
+                    <b>Mobile:</b>
+                    {{ order['phone'] }}
+                </p>
+
+                <p>
+                    <b>Address:</b>
+                    {{ order['address'] }},
+                    {{ order['city'] }},
+                    {{ order['pincode'] }}
+                </p>
+
+                <p>
+                    <b>Total:</b>
+                    ₹{{ order['total'] }}
+                </p>
+
+                <p>
+                    <b>Payment:</b>
+                    {{ order['payment_method'] or 'Cash on Delivery' }}
+                </p>
+
+                <p>
+                    <b>Status:</b>
+                    {{ order['status'] or 'New' }}
+                </p>
+
+
+                <h4>Products</h4>
+
+                <!-- IMPORTANT: items is a list, not order.items -->
+                {% for item in order['items'] %}
+
+                    <div class="order-item">
+
+                        <b>{{ item['name'] }}</b>
+                        <br>
+
+                        Price:
+                        ₹{{ item['price'] }}
+
+                        <br>
+
+                        Quantity:
+                        {{ item['quantity'] }}
+
+                        {% if item.get('size') %}
+                            <br>
+                            Size: {{ item['size'] }}
+                        {% endif %}
+
+                        {% if item.get('shape') %}
+                            <br>
+                            Shape: {{ item['shape'] }}
+                        {% endif %}
+
+                    </div>
+
+                {% else %}
+
+                    <p class="empty">
+                        No products in this order.
+                    </p>
+
+                {% endfor %}
+
+
+                <!-- UPDATE STATUS -->
+                <form method="POST"
+                      class="status-form"
+                      action="{{ url_for('admin_update_order_status', order_id=order['id']) }}">
+
+                    <label>Update Status</label>
+
+                    <select name="status">
+
+                        <option value="New"
+                            {% if order['status'] == 'New' %}selected{% endif %}>
+                            New
+                        </option>
+
+                        <option value="Confirmed"
+                            {% if order['status'] == 'Confirmed' %}selected{% endif %}>
+                            Confirmed
+                        </option>
+
+                        <option value="Processing"
+                            {% if order['status'] == 'Processing' %}selected{% endif %}>
+                            Processing
+                        </option>
+
+                        <option value="Shipped"
+                            {% if order['status'] == 'Shipped' %}selected{% endif %}>
+                            Shipped
+                        </option>
+
+                        <option value="Out for Delivery"
+                            {% if order['status'] == 'Out for Delivery' %}selected{% endif %}>
+                            Out for Delivery
+                        </option>
+
+                        <option value="Delivered"
+                            {% if order['status'] == 'Delivered' %}selected{% endif %}>
+                            Delivered
+                        </option>
+
+                        <option value="Cancelled"
+                            {% if order['status'] == 'Cancelled' %}selected{% endif %}>
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                    <button type="submit">
+                        Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% else %}
+
+            <p class="empty">
+                No orders found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
