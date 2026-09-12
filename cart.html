@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cart - GlassyLook</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #faf9f6;
+    color: #222;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #9b742d;
+}
+
+nav {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+/* ================= PAGE ================= */
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #6e5221;
+}
+
+/* ================= CART ITEM ================= */
+
+.cart-item {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.select-box {
+    width: 20px;
+    height: 20px;
+    accent-color: #b28a3c;
+}
+
+.product-image {
+    width: 120px;
+    height: 130px;
+    border-radius: 12px;
+    background: #f5f3ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* IMPORTANT: FULL MIRROR IMAGE */
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+.no-image {
+    font-size: 45px;
+}
+
+.info {
+    flex: 1;
+}
+
+.info h3 {
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #a47725;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.details {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.quantity span {
+    min-width: 25px;
+    text-align: center;
+}
+
+/* ================= REMOVE ================= */
+
+.remove-btn {
+    border: none;
+    background: #fff0f0;
+    color: #c33;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom-box {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    margin-top: 25px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.checkout-btn {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    background: #a67c2d;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    background: #8c6825;
+}
+
+.empty {
+    background: white;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.empty h2 {
+    margin-bottom: 12px;
+}
+
+.shop-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: #a67c2d;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 9px;
+    text-decoration: none;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:650px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .cart-item {
+        align-items: flex-start;
+    }
+
+    .product-image {
+        width: 90px;
+        height: 110px;
+    }
+
+    .remove-btn {
+        font-size: 12px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🪞 GlassyLook</div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/my-orders">My Orders</a>
+        <a href="/track-order">Track Order</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>🛒 My Cart</h1>
+
+    <div id="cartContainer"></div>
+
+    <div
+        id="bottomBox"
+        class="bottom-box"
+        style="display:none;"
+    >
+
+        <div class="total-row">
+            <span>Selected Total</span>
+            <span id="total">₹0</span>
+        </div>
+
+        <button
+            class="checkout-btn"
+            onclick="goToCheckout()"
+        >
+            Proceed to Checkout →
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let cart = [];
+
+try {
+    cart = JSON.parse(
+        localStorage.getItem("cart") || "[]"
+    );
+} catch(e) {
+    cart = [];
+}
+
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function renderCart() {
+
+    const container =
+        document.getElementById("cartContainer");
+
+    const bottom =
+        document.getElementById("bottomBox");
+
+    if (!cart.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                <h2>🛒 Your Cart is Empty</h2>
+
+                <p>
+                    Add some beautiful mirrors to your cart.
+                </p>
+
+                <a href="/" class="shop-btn">
+                    Continue Shopping
+                </a>
+            </div>
+        `;
+
+        bottom.style.display = "none";
+
+        return;
+    }
+
+    bottom.style.display = "block";
+
+    container.innerHTML = cart.map(
+        (item, index) => {
+
+            const image =
+                item.image
+                ? `/uploads/${encodeURIComponent(item.image)}`
+                : "";
+
+            return `
+                <div class="cart-item">
+
+                    <input
+                        type="checkbox"
+                        class="select-box"
+                        id="select-${index}"
+                        checked
+                        onchange="updateTotal()"
+                    >
+
+                    <div class="product-image">
+
+                        ${
+                            image
+                            ?
+                            `
+                            <img
+                                src="${image}"
+                                alt="${escapeHtml(item.name || "Mirror")}"
+                                onerror="this.style.display='none';"
+                            >
+                            `
+                            :
+                            `<div class="no-image">🪞</div>`
+                        }
+
+                    </div>
+
+                    <div class="info">
+
+                        <h3>
+                            ${escapeHtml(item.name || "Mirror")}
+                        </h3>
+
+                        <div class="price">
+                            ₹${Number(item.price || 0).toLocaleString("en-IN")}
+                        </div>
+
+                        <div class="details">
+
+                            ${
+                                item.size
+                                ? `Size: ${escapeHtml(item.size)}`
+                                : ""
+                            }
+
+                            ${
+                                item.shape
+                                ? ` | Shape: ${escapeHtml(item.shape)}`
+                                : ""
+                            }
+
+                        </div>
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQty(${index}, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span>
+                                ${Number(item.quantity || 1)}
+                            </span>
+
+                            <button
+                                onclick="changeQty(${index}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeItem(${index})"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+            `;
+
+        }
+    ).join("");
+
+    updateTotal();
+}
+
+
+function changeQty(index, change) {
+
+    let qty =
+        Number(cart[index].quantity || 1);
+
+    qty += change;
+
+    if (qty < 1) {
+        qty = 1;
+    }
+
+    cart[index].quantity = qty;
+
+    saveCart();
+
+    renderCart();
+}
+
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    saveCart();
+
+    renderCart();
+}
+
+
+function updateTotal() {
+
+    let total = 0;
+
+    cart.forEach(
+        (item, index) => {
+
+            const checkbox =
+                document.getElementById(
+                    `select-${index}`
+                );
+
+            if (
+                checkbox &&
+                checkbox.checked
+            ) {
+
+                total +=
+                    Number(item.price || 0)
+                    *
+                    Number(item.quantity || 1);
+
+            }
+
+        }
+    );
+
+    document.getElementById(
+        "total"
+    ).innerText =
+        "₹" +
+        total.toLocaleString("en-IN");
+}
+
+
+function goToCheckout() {
+
+    const selected = [];
+
+    cart.forEach(
+        (item, index) => {
+
+            const checkbox =
+                document.getElementById(
+                    `select-${index}`
+                );
+
+            if (
+                checkbox &&
+                checkbox.checked
+            ) {
+
+                selected.push(item);
+
+            }
+
+        }
+    );
+
+
+    if (!selected.length) {
+
+        alert(
+            "Please select at least one product."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "checkoutItems",
+        JSON.stringify(selected)
+    );
+
+
+    window.location.href =
+        "/checkout";
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+renderCart();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>GlassyLook - Owner Dashboard</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#f7f4ee;
+    font-family:Arial,sans-serif;
+    color:#222;
+}
+
+.header{
+    background:#222;
+    color:white;
+    padding:18px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#d3aa5a;
+}
+
+.header-links{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.header-links a{
+    color:white;
+    text-decoration:none;
+    background:#444;
+    padding:9px 12px;
+    border-radius:8px;
+    font-size:12px;
+}
+
+.logout{
+    background:#a33 !important;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:25px;
+}
+
+.welcome{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    margin:0 0 6px;
+}
+
+.welcome p{
+    margin:0;
+    color:#777;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.card h2{
+    margin-top:0;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.field label{
+    display:block;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:9px;
+}
+
+.field textarea{
+    min-height:90px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.add-button{
+    margin-top:15px;
+    background:#222;
+    color:white;
+    border:0;
+    padding:13px 20px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.product{
+    border:1px solid #e7e1d7;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.product-image{
+    height:180px;
+    background:#f5f2ed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.product-info{
+    padding:13px;
+}
+
+.product-info h3{
+    margin:0 0 7px;
+    font-size:15px;
+}
+
+.product-info p{
+    color:#777;
+    font-size:12px;
+    margin:5px 0;
+}
+
+.actions{
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+.actions a,
+.actions button{
+    flex:1;
+    padding:9px;
+    border-radius:7px;
+    text-align:center;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.edit{
+    background:#f0eadf;
+    color:#222;
+    text-decoration:none;
+}
+
+.delete{
+    background:#c33;
+    color:white;
+    border:0;
+}
+
+.orders{
+    overflow-x:auto;
+}
+
+.order-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:800px;
+}
+
+.order-table th,
+.order-table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:12px;
+}
+
+.status-form{
+    display:flex;
+    gap:5px;
+}
+
+.status-form select{
+    padding:7px;
+    border:1px solid #ddd;
+    border-radius:7px;
+}
+
+.status-form button{
+    border:0;
+    background:#222;
+    color:white;
+    padding:7px 10px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+@media(max-width:900px){
+
+    .product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .product-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .container{
+        padding:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        🪞 Glassy<span>Look</span>
+    </div>
+
+    <div class="header-links">
+
+        <a href="{{ url_for('home') }}">
+            Website
+        </a>
+
+        <a href="{{ url_for('change_password') }}">
+            Change Password
+        </a>
+
+        <a
+            href="{{ url_for('admin_logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+<div class="welcome">
+
+    <h1>
+        👋 Welcome, {{ session.get('admin_username', 'Owner') }}
+    </h1>
+
+    <p>
+        Manage your GlassyLook products, photos and orders from here.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     ADD PRODUCT
+===================================================== -->
+
+<div class="card">
+
+<h2>
+    ➕ Add New Product
+</h2>
+
+<form
+    action="{{ url_for('add_product') }}"
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Product Name</label>
+
+<input
+    type="text"
+    name="name"
+    placeholder="Example: LED Looking Mirror"
+    required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Price</label>
+
+<input
+    type="number"
+    name="price"
+    placeholder="4500"
+    step="0.01"
+    required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Size</label>
+
+<input
+    type="text"
+    name="size"
+    placeholder="24 × 36"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Shape</label>
+
+<input
+    type="text"
+    name="shape"
+    placeholder="Oval / Round / Capsule"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>Description</label>
+
+<textarea
+    name="description"
+    placeholder="Product description..."
+></textarea>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+    Product Photo
+</label>
+
+<input
+    type="file"
+    name="image"
+    accept=".jpg,.jpeg,.png,.webp"
+>
+
+</div>
+
+</div>
+
+<button
+    type="submit"
+    class="add-button"
+>
+    📸 Add Product & Photo
+</button>
+
+</form>
+
+</div>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<div class="card">
+
+<h2>
+    🪞 Products & Photos
+</h2>
+
+<br>
+
+{% if products %}
+
+<div class="product-grid">
+
+{% for product in products %}
+
+<div class="product">
+
+<div class="product-image">
+
+{% if product['image'] %}
+
+<img
+    src="{{ url_for('uploaded_file', filename=product['image']) }}"
+    alt="{{ product['name'] }}"
+>
+
+{% else %}
+
+<span style="font-size:50px;">
+    🪞
+</span>
+
+{% endif %}
+
+</div>
+
+<div class="product-info">
+
+<h3>
+    {{ product['name'] }}
+</h3>
+
+<p>
+    ₹{{ product['price'] }}
+</p>
+
+{% if product['size'] %}
+<p>
+    Size: {{ product['size'] }}
+</p>
+{% endif %}
+
+{% if product['shape'] %}
+<p>
+    Shape: {{ product['shape'] }}
+</p>
+{% endif %}
+
+<div class="actions">
+
+<a
+    class="edit"
+    href="{{ url_for(
+        'edit_product',
+        product_id=product['id']
+    ) }}"
+>
+    ✏️ Edit
+</a>
+
+<form
+    method="POST"
+    action="{{ url_for(
+        'delete_product',
+        product_id=product['id']
+    ) }}"
+    onsubmit="return confirm('Delete this product?');"
+>
+
+<button
+    type="submit"
+    class="delete"
+>
+    🗑 Delete
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p>
+    No products available.
+</p>
+
+{% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     ORDERS
+===================================================== -->
+
+<div class="card">
+
+<h2>
+    📦 Customer Orders
+</h2>
+
+<br>
+
+<div class="orders">
+
+<table class="order-table">
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+<th>Customer</th>
+<th>Phone</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+    #{{ order['id'] }}
+</td>
+
+<td>
+    {{ order['customer_name'] }}
+</td>
+
+<td>
+    {{ order['phone'] }}
+</td>
+
+<td>
+    {{ order['product_name'] }}
+</td>
+
+<td>
+    {{ order['quantity'] }}
+</td>
+
+<td>
+    ₹{{ order['price'] }}
+</td>
+
+<td>
+
+<form
+    class="status-form"
+    method="POST"
+    action="{{ url_for(
+        'update_order_status',
+        order_id=order['id']
+    ) }}"
+>
+
+<select name="status">
+
+{% for status in [
+    'New',
+    'Confirmed',
+    'Processing',
+    'Shipped',
+    'Out for Delivery',
+    'Delivered',
+    'Cancelled'
+] %}
+
+<option
+    value="{{ status }}"
+    {% if order['status'] == status %}
+    selected
+    {% endif %}
+>
+    {{ status }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<button type="submit">
+    Update
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="7">
+    No orders yet.
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

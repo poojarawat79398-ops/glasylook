@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Checkout - GlassyLook</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #faf9f6;
+    color: #222;
+}
+
+header {
+    background: white;
+    padding: 16px 5%;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #9b742d;
+}
+
+.container {
+    width: 92%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+h1 {
+    color: #6e5221;
+    margin-bottom: 25px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 25px;
+}
+
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+
+.box h2 {
+    margin-bottom: 20px;
+    color: #6e5221;
+}
+
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    outline: none;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.payment {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.payment input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.payment strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.payment small {
+    color: #777;
+}
+
+.product {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+.product-img {
+    width: 75px;
+    height: 85px;
+    background: #f5f3ee;
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* FULL IMAGE */
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 13px;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #a47725;
+    margin-top: 5px;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.place-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    background: #a67c2d;
+    color: white;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.policy {
+    background: #fff9e8;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    color: #765b25;
+    line-height: 1.6;
+}
+
+@media(max-width:800px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🪞 GlassyLook</div>
+</header>
+
+
+<div class="container">
+
+    <h1>Checkout</h1>
+
+    <form
+        method="POST"
+        action="/place-order"
+        id="checkoutForm"
+    >
+
+        <input
+            type="hidden"
+            name="items"
+            id="itemsInput"
+        >
+
+        <div class="grid">
+
+            <!-- CUSTOMER DETAILS -->
+
+            <div>
+
+                <div class="box">
+
+                    <h2>📦 Shipping Details</h2>
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        name="customer_name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                    <label>Phone Number</label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter 10 digit phone number"
+                        pattern="[0-9]{10}"
+                        required
+                    >
+
+                    <label>Full Address</label>
+
+                    <textarea
+                        name="address"
+                        placeholder="House No., Street, Area..."
+                        required
+                    ></textarea>
+
+                    <label>City</label>
+
+                    <input
+                        type="text"
+                        name="city"
+                        placeholder="Enter city"
+                        required
+                    >
+
+                    <label>Pincode</label>
+
+                    <input
+                        type="text"
+                        name="pincode"
+                        placeholder="Enter 6 digit pincode"
+                        pattern="[0-9]{6}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="box">
+
+                    <h2>💳 Payment Method</h2>
+
+                    <label class="payment">
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="Cash on Delivery"
+                            checked
+                        >
+
+                        <strong>
+                            Cash on Delivery
+                        </strong>
+
+                        <small>
+                            Pay according to the order payment policy.
+                        </small>
+
+                    </label>
+
+
+                    <label class="payment">
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="Online Payment"
+                        >
+
+                        <strong>
+                            Online Payment / UPI
+                        </strong>
+
+                        <small>
+                            UPI: goutamaartti@okaxis
+                        </small>
+
+                    </label>
+
+
+                    <div class="policy">
+
+                        <strong>
+                            🪞 GlassyLook Payment Policy
+                        </strong>
+
+                        <br>
+
+                        75% payment before order processing
+                        and 25% after delivery.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div>
+
+                <div class="box">
+
+                    <h2>🛍️ Order Summary</h2>
+
+                    <div id="products"></div>
+
+                    <div class="total">
+
+                        <span>Total</span>
+
+                        <span id="total">
+                            ₹0
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="place-btn"
+                    >
+                        Place Order →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+let items = [];
+
+try {
+
+    items = JSON.parse(
+        localStorage.getItem(
+            "checkoutItems"
+        ) || "[]"
+    );
+
+} catch(e) {
+
+    items = [];
+
+}
+
+
+
+
+document.getElementById(
+    "itemsInput"
+).value = JSON.stringify(items);
+
+
+function renderProducts() {
+
+    const box =
+        document.getElementById(
+            "products"
+        );
+
+    let total = 0;
+
+    box.innerHTML = items.map(
+        item => {
+
+            const price =
+                Number(item.price || 0);
+
+            const quantity =
+                Number(item.quantity || 1);
+
+            total +=
+                price * quantity;
+
+            const image =
+                item.image
+                ? `/uploads/${encodeURIComponent(item.image)}`
+                : "";
+
+            return `
+
+                <div class="product">
+
+                    <div class="product-img">
+
+                        ${
+                            image
+                            ?
+                            `
+                            <img
+                                src="${image}"
+                                alt="Mirror"
+                                onerror="this.style.display='none';"
+                            >
+                            `
+                            :
+                            `🪞`
+                        }
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>
+                            ${escapeHtml(item.name || "Mirror")}
+                        </h3>
+
+                        <p>
+                            Qty: ${quantity}
+                        </p>
+
+                        ${
+                            item.size
+                            ? `<p>Size: ${escapeHtml(item.size)}</p>`
+                            : ""
+                        }
+
+                        ${
+                            item.shape
+                            ? `<p>Shape: ${escapeHtml(item.shape)}</p>`
+                            : ""
+                        }
+
+                        <div class="product-price">
+                            ₹${(
+                                price * quantity
+                            ).toLocaleString("en-IN")}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    ).join("");
+
+
+    document.getElementById(
+        "total"
+    ).innerText =
+        "₹" +
+        total.toLocaleString("en-IN");
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+document.getElementById(
+    "checkoutForm"
+).addEventListener(
+    "submit",
+    function() {
+
+        document.getElementById(
+            "itemsInput"
+        ).value =
+            JSON.stringify(items);
+
+    }
+);
+
+
+renderProducts();
+
+</script>
+
+</body>
+</html>

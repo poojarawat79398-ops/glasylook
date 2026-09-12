@@ -1,0 +1,370 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Successfully - GlassyLook</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f7f6f2;
+    color:#222;
+}
+
+.header{
+    background:#111;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.header span{
+    color:#d4af37;
+}
+
+.container{
+    max-width:650px;
+    margin:40px auto;
+    padding:20px;
+}
+
+.success{
+    background:white;
+    border-radius:15px;
+    padding:30px 20px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.check{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border-radius:50%;
+    background:#25a244;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+}
+
+h1{
+    margin-top:20px;
+    color:#25a244;
+}
+
+.order{
+    margin-top:20px;
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:8px;
+}
+
+.info{
+    margin-top:20px;
+    text-align:left;
+    line-height:1.8;
+}
+
+.product-box{
+    margin-top:20px;
+    text-align:left;
+}
+
+.product{
+    display:flex;
+    gap:15px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.product img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    background:#f5f5f5;
+    border-radius:8px;
+}
+
+.product-name{
+    font-weight:bold;
+    font-size:17px;
+}
+
+.product-info{
+    color:#666;
+    font-size:14px;
+    margin-top:5px;
+}
+
+.total{
+    font-size:21px;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+.buttons{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.btn{
+    display:block;
+    text-decoration:none;
+    padding:14px;
+    border-radius:8px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.details{
+    background:#111;
+    color:white;
+}
+
+.track{
+    background:#d4af37;
+    color:#111;
+}
+
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+
+.home{
+    background:#eee;
+    color:#222;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Glassy<span>Look</span>
+</div>
+
+<div class="container">
+
+<div class="success">
+
+<div class="check">✓</div>
+
+<h1>Order Successfully Placed!</h1>
+
+<p style="margin-top:10px;color:#666;">
+Thank you for shopping with GlassyLook ❤️
+</p>
+
+<div class="order">
+<strong>Order ID</strong>
+<br>
+#{{ order['id'] }}
+</div>
+
+<div class="info">
+
+<strong>Customer:</strong>
+{{ order['customer_name'] }}
+
+<br>
+
+<strong>Mobile:</strong>
+{{ order['phone'] }}
+
+<br>
+
+<strong>Address:</strong>
+{{ order['address'] }}
+
+<br>
+
+{{ order['city'] }} - {{ order['pincode'] }}
+
+<br>
+
+<strong>Payment:</strong>
+{{ order['payment_method'] }}
+
+<br>
+
+<strong>Status:</strong>
+<span style="color:#b08b15;">
+{{ order['status'] }}
+</span>
+
+<div class="total">
+Total: ₹{{ order['total'] }}
+</div>
+
+</div>
+
+
+<div class="product-box">
+
+<h3 style="margin-bottom:10px;">
+🛍️ Ordered Products
+</h3>
+
+{% if order_items %}
+
+{% for item in order_items %}
+
+<div class="product">
+
+{% if item.get('image') %}
+
+<img
+src="{{ url_for('uploaded_file', filename=item.get('image')) }}"
+alt="{{ item.get('name','Product') }}"
+onerror="this.style.display='none';"
+>
+
+{% else %}
+
+<div style="
+width:90px;
+height:90px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#eee;
+border-radius:8px;
+font-size:35px;
+">
+🪞
+</div>
+
+{% endif %}
+
+<div>
+
+<div class="product-name">
+{{ item.get('name','Product') }}
+</div>
+
+<div class="product-info">
+Quantity: {{ item.get('quantity',1) }}
+<br>
+Price: ₹{{ item.get('price',0) }}
+
+{% if item.get('size') %}
+<br>
+Size: {{ item.get('size') }}
+{% endif %}
+
+{% if item.get('shape') %}
+<br>
+Shape: {{ item.get('shape') }}
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p>Product details unavailable.</p>
+
+{% endif %}
+
+</div>
+
+
+<div class="buttons">
+
+<a
+href="/order-details/{{ order['id'] }}"
+class="btn details">
+📋 Order Details
+</a>
+
+<a
+href="/track-order/{{ order['id'] }}"
+class="btn track">
+🚚 Track Order
+</a>
+
+<a
+id="whatsappButton"
+href="#"
+class="btn whatsapp">
+💬 Send Order to WhatsApp
+</a>
+
+<a
+href="/"
+class="btn home">
+🏠 Continue Shopping
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+const whatsappNumber = "919915645918";
+
+const message = `GLASSYLOOK NEW ORDER
+
+Order ID: #{{ order['id'] }}
+
+Customer: {{ order['customer_name'] }}
+Phone: {{ order['phone'] }}
+
+Address:
+{{ order['address'] }}
+{{ order['city'] }} - {{ order['pincode'] }}
+
+Payment: {{ order['payment_method'] }}
+Status: {{ order['status'] }}
+
+ORDER DETAILS:
+{% for item in order_items %}
+Product: {{ item.get('name','Product') }}
+Quantity: {{ item.get('quantity',1) }}
+Price: ₹{{ item.get('price',0) }}
+{% if item.get('size') %}Size: {{ item.get('size') }}{% endif %}
+{% if item.get('shape') %}Shape: {{ item.get('shape') }}{% endif %}
+
+{% endfor %}
+
+TOTAL: ₹{{ order['total'] }}
+
+Thank you - GlassyLook`;
+
+const whatsappURL =
+"https://wa.me/" +
+whatsappNumber +
+"?text=" +
+encodeURIComponent(message);
+
+document.getElementById("whatsappButton").href = whatsappURL;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Glassy Admin Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            padding: 35px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        .forgot {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        .flash {
+            background: #ffe5e5;
+            color: #b00020;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h1>Glassy Admin</h1>
+
+        <p class="subtitle">
+            Secure Admin Login
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <form method="POST">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">
+                Login to Admin Panel
+            </button>
+
+        </form>
+
+        <a
+            href="{{ url_for('admin_forgot_password') }}"
+            class="forgot"
+        >
+            Forgot Password?
+        </a>
+
+    </div>
+
+</body>
+</html>
